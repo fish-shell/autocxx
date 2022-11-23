@@ -467,6 +467,15 @@ fn create_type_database() -> TypeDatabase {
     ));
 
     db.insert(TypeDetails::new(
+        "wchar::wchar_t",
+        "wchar_t",
+        Behavior::CByValueVecSafe,
+        Some("wchar_t".into()),
+        true,
+        true,
+    ));
+
+    db.insert(TypeDetails::new(
         "std::pin::Pin",
         "Pin",
         Behavior::RustByValue, // because this is actually Pin<&something>
