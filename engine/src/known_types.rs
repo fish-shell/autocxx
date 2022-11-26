@@ -403,6 +403,14 @@ fn create_type_database() -> TypeDatabase {
         true,
     ));
     db.insert(TypeDetails::new(
+        "cxx::CxxWString",
+        "std::wstring",
+        Behavior::CxxString,
+        None,
+        true,
+        true,
+    ));
+    db.insert(TypeDetails::new(
         "str",
         "rust::Str",
         Behavior::RustStr,
