@@ -46,6 +46,12 @@ impl TypeConversionPolicy {
                 conversion: quote! ( #var .into_cpp() ),
                 conversion_requires_unsafe: false,
             },
+            RustConversionType::FromWStr => RustParamConversion::Param {
+                ty: parse_quote! { impl ToCppWString },
+                local_variables: Vec::new(),
+                conversion: quote! ( #var .into_cpp() ),
+                conversion_requires_unsafe: false,
+            },
             RustConversionType::ToBoxedUpHolder(ref sub) => {
                 let holder_type = sub.holder();
                 let id = sub.id();

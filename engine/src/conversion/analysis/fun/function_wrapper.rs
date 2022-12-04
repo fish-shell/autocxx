@@ -50,6 +50,7 @@ impl CppConversionType {
 pub(crate) enum RustConversionType {
     None,
     FromStr,
+    FromWStr,
     ToBoxedUpHolder(SubclassName),
     FromPinMaybeUninitToPtr,
     FromPinMoveRefToPtr,
