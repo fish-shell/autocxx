@@ -133,38 +133,10 @@ fn get_string_items() -> Vec<Item> {
                 }
             }
         }),
-    ]
-    .to_vec()
-}
-
-fn get_wstring_items() -> Vec<Item> {
-    [
         // Wide variants.
         Item::Trait(parse_quote! {
             pub trait ToCppWString {
                 fn into_cpp(self) -> cxx::UniquePtr<cxx::CxxWString>;
-            }
-        }),
-        Item::Impl(parse_quote! {
-            impl ToCppWString for &str {
-                fn into_cpp(self) -> cxx::UniquePtr<cxx::CxxWString> {
-                    make_wstring(self);
-
-                }
-            }
-        }),
-        Item::Impl(parse_quote! {
-            impl ToCppWString for String {
-                fn into_cpp(self) -> cxx::UniquePtr<cxx::CxxWString> {
-                    make_wstring(&self)
-                }
-            }
-        }),
-        Item::Impl(parse_quote! {
-            impl ToCppWString for &String {
-                fn into_cpp(self) -> cxx::UniquePtr<cxx::CxxWString> {
-                    make_wstring(self)
-                }
             }
         }),
         Item::Impl(parse_quote! {
@@ -411,6 +383,7 @@ impl<'a> RsCodeGenerator<'a> {
         let mut imports_from_super = vec!["cxxbridge"];
         if !self.config.exclude_utilities() {
             imports_from_super.push("ToCppString");
+            imports_from_super.push("ToCppWString");
         }
         let imports_from_super = imports_from_super.into_iter().map(make_ident);
         let super_duper = std::iter::repeat(make_ident("super")); // I'll get my coat
@@ -528,19 +501,6 @@ impl<'a> RsCodeGenerator<'a> {
                     global_items: get_string_items(),
                     materializations: vec![Use::UsedFromCxxBridgeWithAlias(make_ident(
                         "make_string",
-                    ))],
-                    ..Default::default()
-                }
-            }
-            Api::WStringConstructor { .. } => {
-                let make_wstring_name = make_ident(self.config.get_makewstring_name());
-                RsCodegenResult {
-                    extern_c_mod_items: vec![ForeignItem::Fn(parse_quote!(
-                        fn #make_wstring_name(str_: &str) -> UniquePtr<CxxWString>;
-                    ))],
-                    global_items: get_wstring_items(),
-                    materializations: vec![Use::UsedFromCxxBridgeWithAlias(make_ident(
-                        "make_wstring",
                     ))],
                     ..Default::default()
                 }

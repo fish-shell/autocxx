@@ -27,9 +27,4 @@ pub(crate) fn generate_utilities(apis: &mut ApiVec<NullPhase>, config: &IncludeC
     apis.push(UnanalyzedApi::StringConstructor {
         name: ApiName::new(&Namespace::new(), make_ident(config.get_makestring_name())),
     });
-
-    // make_wstring too.
-    apis.push(UnanalyzedApi::WStringConstructor {
-        name: ApiName::new(&Namespace::new(), make_ident(config.get_makewstring_name())),
-    });
 }

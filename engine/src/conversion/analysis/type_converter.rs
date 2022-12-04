@@ -731,7 +731,6 @@ pub(crate) fn find_types<A: AnalysisPhase>(apis: &ApiVec<A>) -> HashSet<Qualifie
             | Api::ExternCppType { .. }
             | Api::RustType { .. } => Some(api.name()),
             Api::StringConstructor { .. }
-            | Api::WStringConstructor { .. }
             | Api::Function { .. }
             | Api::Const { .. }
             | Api::CType { .. }
