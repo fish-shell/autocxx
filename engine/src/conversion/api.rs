@@ -490,7 +490,12 @@ pub(crate) enum Api<T: AnalysisPhase> {
     },
     /// A simple note that we want to make a constructor for
     /// a `std::string` on the heap.
-    StringConstructor { name: ApiName },
+    StringConstructor {
+        name: ApiName,
+    },
+    WStringConstructor {
+        name: ApiName,
+    },
     /// A function. May include some analysis.
     Function {
         name: ApiName,
@@ -512,7 +517,10 @@ pub(crate) enum Api<T: AnalysisPhase> {
     },
     /// An enum encountered in the
     /// `bindgen` output.
-    Enum { name: ApiName, item: ItemEnum },
+    Enum {
+        name: ApiName,
+        item: ItemEnum,
+    },
     /// A struct encountered in the
     /// `bindgen` output.
     Struct {
@@ -535,7 +543,10 @@ pub(crate) enum Api<T: AnalysisPhase> {
         ctx: Option<ErrorContext>,
     },
     /// A Rust type which is not a C++ type.
-    RustType { name: ApiName, path: RustPath },
+    RustType {
+        name: ApiName,
+        path: RustPath,
+    },
     /// A function for the 'extern Rust' block which is not a C++ type.
     RustFn {
         name: ApiName,
@@ -594,6 +605,7 @@ impl<T: AnalysisPhase> Api<T> {
             Api::OpaqueTypedef { name, .. } => name,
             Api::ConcreteType { name, .. } => name,
             Api::StringConstructor { name } => name,
+            Api::WStringConstructor { name } => name,
             Api::Function { name, .. } => name,
             Api::Const { name, .. } => name,
             Api::Typedef { name, .. } => name,

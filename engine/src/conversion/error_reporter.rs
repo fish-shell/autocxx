@@ -115,6 +115,9 @@ pub(crate) fn convert_apis<FF, SF, EF, TF, A, B: 'static>(
             Api::StringConstructor { name } => {
                 Ok(Box::new(std::iter::once(Api::StringConstructor { name })))
             }
+            Api::WStringConstructor { name } => {
+                Ok(Box::new(std::iter::once(Api::WStringConstructor { name })))
+            }
             Api::Const { name, const_item } => {
                 Ok(Box::new(std::iter::once(Api::Const { name, const_item })))
             }

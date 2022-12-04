@@ -408,6 +408,10 @@ impl IncludeCppConfig {
         self.uniquify_name_per_mod("autocxx_make_string")
     }
 
+    pub fn get_makewstring_name(&self) -> String {
+        self.uniquify_name_per_mod("autocxx_make_wstring")
+    }
+
     pub fn is_rust_type(&self, id: &Ident) -> bool {
         let id_string = id.to_string();
         self.is_rust_type_name(&id_string) || self.is_subclass_holder(&id_string)

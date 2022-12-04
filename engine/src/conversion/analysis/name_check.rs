@@ -68,6 +68,7 @@ pub(crate) fn check_names(apis: ApiVec<FnPhase>) -> ApiVec<FnPhase> {
         Api::ConcreteType { .. }
         | Api::CType { .. }
         | Api::StringConstructor { .. }
+        | Api::WStringConstructor { .. }
         | Api::RustType { .. }
         | Api::RustSubclassFn { .. }
         | Api::RustFn { .. }
