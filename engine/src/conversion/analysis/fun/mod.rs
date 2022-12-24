@@ -1673,13 +1673,14 @@ impl<'a> FnAnalyzer<'a> {
                 let new_ty = annotated_type.ty;
                 pt.pat = Box::new(new_pat.clone());
                 pt.ty = new_ty;
+                // fish - do not add unsafe just because we're passing pointers around.
                 let requires_unsafe =
                     if matches!(annotated_type.kind, type_converter::TypeKind::Pointer)
                         && !is_placement_return_destination
                     {
-                        UnsafetyNeeded::Always
+                        UnsafetyNeeded::None //Always
                     } else if conversion.bridge_unsafe_needed() || is_placement_return_destination {
-                        UnsafetyNeeded::JustBridge
+                        UnsafetyNeeded::None //JustBridge
                     } else {
                         UnsafetyNeeded::None
                     };
