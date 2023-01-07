@@ -483,7 +483,7 @@ fn create_type_database() -> TypeDatabase {
     ));
 
     db.insert(TypeDetails::new(
-        "wchar::wchar_t",
+        "crate::ffi::wchar_t",
         "wchar_t",
         Behavior::CByValueVecSafe,
         Some("wchar_t".into()),
